@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <limits>
+using namespace std;
 
 TicTacToe::TicTacToe() : playerX('X'), playerO('O') {}
 
@@ -15,7 +16,7 @@ void TicTacToe::play() {
             board.markCell(move, 'X');
             if (board.checkWinner()) {
                 board.display();
-                std::cout << "Player X wins!\n";
+                cout << "Player X wins!\n";
                 break;
             }
             currentPlayer = 'O';
@@ -24,7 +25,7 @@ void TicTacToe::play() {
             board.markCell(move, 'O');
             if (board.checkWinner()) {
                 board.display();
-                std::cout << "Player O wins!\n";
+                cout << "Player O wins!\n";
                 break;
             }
             currentPlayer = 'X';
@@ -32,14 +33,14 @@ void TicTacToe::play() {
 
         if (board.isFull()) {
             board.display();
-            std::cout << "It's a draw!\n";
+            cout << "It's a draw!\n";
             break;
         }
     }
 
     char playAgain;
-    std::cout << "Do you want to play again? (y/n): ";
-    std::cin >> playAgain;
+    cout << "Do you want to play again? (y/n): ";
+    cin >> playAgain;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (playAgain == 'y' || playAgain == 'Y') {
         TicTacToe newGame;

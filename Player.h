@@ -11,12 +11,4 @@ public:
     int getMove(Board* board);
 };
 
-#endif 
-
-
-
-
-
-
-
-
+#endif
