@@ -1,0 +1,77 @@
+
+
+############################################################################################################################################3
+
+# Extra credit code in python language
+# Lab: You Get an A!
+
+##############################################################################################################################################
+
+
+# class Student:
+#     def __init__(self, first_name, last_name, student_id):
+#         self.first_name = first_name
+#         self.last_name = last_name
+#         self.student_id = student_id
+#         self.grades = {}  
+
+#     def add_grade(self, assignment_name, grade):
+#         self.grades[assignment_name] = grade
+
+#     def get_grade(self, assignment_name):
+#         return self.grades.get(assignment_name, 'none')
+
+
+# class Assignment:
+#     def __init__(self, name, total_points):
+#         self.name = name
+#         self.total_points = total_points
+
+
+# class Gradebook:
+#     def __init__(self):
+#         self.students = {}
+#         self.assignments = {}
+
+#     def add_student(self, first_name, last_name, student_id):
+#         student = Student(first_name, last_name, student_id)
+#         self.students[student_id] = student
+
+#     def add_assignment(self, name, total_points):
+#         assignment = Assignment(name, total_points)
+#         self.assignments[name] = assignment
+
+#     def enter_grade(self, student_id, assignment_name, grade):
+#         if student_id in self.students and assignment_name in self.assignments:
+#             self.students[student_id].add_grade(assignment_name, grade)
+
+#     def report(self):
+#         header = "Last_Name,First_Name,Student_Id," + ",".join([assignment_name.replace(" ", "_") for assignment_name in self.assignments.keys()])
+        
+#         rows = []
+#         for student in self.students.values():
+#             student_data = [student.last_name, student.first_name, student.student_id]
+#             for assignment_name in self.assignments.keys():
+#                 student_data.append(str(student.get_grade(assignment_name)))
+#             rows.append(",".join(student_data))
+        
+#         return "\n".join([header] + rows)
+
+
+
+# gradebook = Gradebook()
+
+# gradebook.add_student("Bob", "Bobberson", "ABC123")
+# gradebook.add_student("Sam", "Sammerson", "DEF456")
+# gradebook.add_student("Jess", "Jesserson", "HIJ789")
+
+# gradebook.add_assignment("Quiz 1", 100)
+# gradebook.add_assignment("Lab 1", 50)
+
+# gradebook.enter_grade("DEF456", "Quiz 1", 95)
+# gradebook.enter_grade("ABC123", "Quiz 1", 85)
+# gradebook.enter_grade("HIJ789", "Lab 1", 49)
+# gradebook.enter_grade("HIJ789", "Quiz 1", 93)
+# gradebook.enter_grade("ABC123", "Lab 1", 0)
+
+# print(gradebook.report())
