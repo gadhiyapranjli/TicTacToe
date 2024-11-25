@@ -1,7 +1,5 @@
-#ifndef BOARD_H
-#define BOARD_H
-
-#include <iostream>
+#ifndef BOARD_HPP
+#define BOARD_HPP
 
 class Board {
 public:
@@ -13,6 +11,7 @@ public:
     char getMark(int index);
     bool checkWinner();
     bool isFull();
+    void reset();
 };
 
-#endif 
+#endif

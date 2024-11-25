@@ -1,9 +1,11 @@
-#include <iostream>
-#include "Game.h"
+#include <iostream>          
+#include "TicTacToe.hpp"     
+#include "Board.hpp"         
+#include "Player.hpp"        
 
 int main() {
-    std::cout << "Welcome to Tic-Tac-Toe!\n";
-    TicTacToe game;
-    game.play();
+    TicTacToe game;      
+    game.play();         
     return 0;
 }
+

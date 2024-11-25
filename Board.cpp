@@ -1,9 +1,9 @@
-#include "Board.h"
+#include "Board.hpp"
+#include <iostream>
+
 
 Board::Board() {
-    for (int i = 0; i < 9; i++) {
-        cells[i] = '0' + (i + 1);
-    }
+    reset();
 }
 
 void Board::display() {
@@ -50,4 +50,10 @@ bool Board::isFull() {
         if (!isTaken(i)) return false;
     }
     return true;
+}
+
+void Board::reset() {
+    for (int i = 0; i < 9; i++) {
+        cells[i] = '1' + i;  
+    }
 }
