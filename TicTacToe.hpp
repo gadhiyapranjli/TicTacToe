@@ -3,21 +3,29 @@
 
 #include "Board.hpp"
 #include "Player.hpp"
+#include <string>
 
 class TicTacToe {
-public:
+private:
     Board board;
-    Player playerX;
-    Player playerO;
+    Player playerX, playerO;
+    static int gamesPlayed;
+    static int playerOneWins;
+    static int playerTwoWins;
+    static int ties;
 
+public:
     TicTacToe();
-    void play();
+
     void regularPlay();
-    void battlePlay();
     void battleDescription();
+    bool validArchetype(const std::string& archetype);
     void battleChooseArchetypes();
     bool swarmWinCondition();
-    bool validArchetype(const std::string& archetype);
+    void battlePlay();
+    void play();
+
+    static void printGameReport();  
 };
 
-#endif
+#endif 

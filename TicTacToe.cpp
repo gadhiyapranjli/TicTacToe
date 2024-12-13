@@ -1,6 +1,12 @@
 #include "TicTacToe.hpp"
 #include <iostream>
 #include <limits>
+#include <algorithm>
+
+int TicTacToe::gamesPlayed = 0;
+int TicTacToe::playerOneWins = 0;
+int TicTacToe::playerTwoWins = 0;
+int TicTacToe::ties = 0;
 
 TicTacToe::TicTacToe() : playerX('X'), playerO('O') {}
 
@@ -16,6 +22,7 @@ void TicTacToe::regularPlay() {
             if (board.checkWinner()) {
                 board.display();
                 std::cout << "Player X wins!\n";
+                playerOneWins++;
                 break;
             }
             currentPlayer = 'O';
@@ -25,6 +32,7 @@ void TicTacToe::regularPlay() {
             if (board.checkWinner()) {
                 board.display();
                 std::cout << "Player O wins!\n";
+                playerTwoWins++;
                 break;
             }
             currentPlayer = 'X';
@@ -33,11 +41,12 @@ void TicTacToe::regularPlay() {
         if (board.isFull()) {
             board.display();
             std::cout << "It's a draw!\n";
+            ties++;
             break;
         }
     }
 
-    
+    gamesPlayed++;
     char playAgain;
     std::cout << "Do you want to play again? (y/n): ";
     std::cin >> playAgain;
@@ -46,6 +55,7 @@ void TicTacToe::regularPlay() {
         TicTacToe newGame;
         newGame.play();
     } else {
+        printGameReport();
         std::cout << "Thanks for playing! Goodbye!\n";
     }
 }
@@ -110,8 +120,25 @@ void TicTacToe::battlePlay() {
                 std::cout << "1. Regular move\n";
                 std::cout << "2. Special move (reset board)\n";
                 int choice;
-                std::cin >> choice;
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                while (true) {
+                    std::string input;
+                    std::cout << "Enter your choice (1 or 2): ";
+                    std::getline(std::cin, input);
+
+                    
+                    input.erase(std::remove_if(input.begin(), input.end(), ::isspace), input.end());
+
+                    try {
+                        choice = std::stoi(input); 
+                        if (choice == 1 || choice == 2) {
+                            break; 
+                        } else {
+                            std::cout << "Invalid choice. Please enter 1 or 2.\n";
+                        }
+                    } catch (std::invalid_argument&) {
+                        std::cout << "Invalid input. Please enter a number (1 or 2).\n";
+                    }
+                }
 
                 if (choice == 1) {
                     move = playerX.getMove(&board);
@@ -129,6 +156,7 @@ void TicTacToe::battlePlay() {
             if (board.checkWinner() || swarmWinCondition()) {
                 board.display();
                 std::cout << "Player X wins!\n";
+                playerOneWins++;
                 break;
             }
             currentPlayer = 'O';
@@ -138,8 +166,24 @@ void TicTacToe::battlePlay() {
                 std::cout << "1. Regular move\n";
                 std::cout << "2. Special move (reset board)\n";
                 int choice;
-                std::cin >> choice;
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                while (true) {
+                    std::string input;
+                    std::cout << "Enter your choice (1 or 2): ";
+                    std::getline(std::cin, input);
+
+                    input.erase(std::remove_if(input.begin(), input.end(), ::isspace), input.end());
+
+                    try {
+                        choice = std::stoi(input); 
+                        if (choice == 1 || choice == 2) {
+                            break; 
+                        } else {
+                            std::cout << "Invalid choice. Please enter 1 or 2.\n";
+                        }
+                    } catch (std::invalid_argument&) {
+                        std::cout << "Invalid input. Please enter a number (1 or 2).\n";
+                    }
+                }
 
                 if (choice == 1) {
                     move = playerO.getMove(&board);
@@ -157,6 +201,7 @@ void TicTacToe::battlePlay() {
             if (board.checkWinner() || swarmWinCondition()) {
                 board.display();
                 std::cout << "Player O wins!\n";
+                playerTwoWins++;
                 break;
             }
             currentPlayer = 'X';
@@ -165,11 +210,12 @@ void TicTacToe::battlePlay() {
         if (board.isFull()) {
             board.display();
             std::cout << "It's a draw!\n";
+            ties++;
             break;
         }
     }
 
-   
+    gamesPlayed++;
     char playAgain;
     std::cout << "Do you want to play again? (y/n): ";
     std::cin >> playAgain;
@@ -178,16 +224,44 @@ void TicTacToe::battlePlay() {
         TicTacToe newGame;
         newGame.play();
     } else {
+        printGameReport();
         std::cout << "Thanks for playing! Goodbye!\n";
     }
 }
 
+void TicTacToe::printGameReport() {
+    std::cout << "\n--- Game Report ---\n";
+    std::cout << "Total games played: " << gamesPlayed << "\n";
+    std::cout << "Player 1 (X) wins: " << playerOneWins << "\n";
+    std::cout << "Player 2 (O) wins: " << playerTwoWins << "\n";
+    std::cout << "Ties: " << ties << "\n";
+}
+
 void TicTacToe::play() {
     std::cout << "Welcome to Tic-Tac-Toe!\n";
-    std::cout << "Choose game mode:\n1. Regular Tic-Tac-Toe\n2. Battle Tic-Tac-Toe\n";
+    std::cout << "Choose game mode:\n";
+    std::cout << "1. Regular Tic-Tac-Toe\n";
+    std::cout << "2. Battle Tic-Tac-Toe\n";
     int choice;
-    std::cin >> choice;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while (true) {
+        std::string input;
+        std::cout << "Enter your choice (1 or 2): ";
+        std::getline(std::cin, input);
+
+        input.erase(std::remove_if(input.begin(), input.end(), ::isspace), input.end());
+
+        try {
+            choice = std::stoi(input); 
+            if (choice == 1 || choice == 2) {
+                break; 
+            } else {
+                std::cout << "Invalid choice. Please enter 1 or 2.\n";
+            }
+        } catch (std::invalid_argument&) {
+            std::cout << "Invalid input. Please enter a number (1 or 2).\n";
+        }
+    }
+
     if (choice == 1) {
         regularPlay();
     } else if (choice == 2) {
